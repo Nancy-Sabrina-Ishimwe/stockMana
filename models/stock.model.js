@@ -1,19 +1,26 @@
-const mongoose = require('mongoose');
-const stockSchema = new mongoose.Schema({
-    itemNames: { required: true, type: 'string'},
-    itemId:{ required: true, type: 'string' },
-    itemMadeDate:{ required: true, type: 'string' },
-    itemExpireDate:{ required: true, type: 'string' },
-    itemMadeProducts:{ required: true, type: 'string' },
-    itemPrices:{ required: true, type: 'string' },
-    itemRole:{
-        enum:{ 
-            value:["fruits", "Breads","vegetables","oil "],
-            message:"{value} is not a valid in the store",
+var mongoose = require('mongoose');
+var StockModel= new mongoose.Schema(
+    {
+        name:{
+            type:String,
+            required:true,
+        },
+        measurements:{
+            required:true,
+            type:String,
+            enum:{
+                values:['size','width','pcs','grams'],
+                message:"{value} is not valid",
+            }
+        },
+        quantity:{
+            type:Number,
+            required:true,
+        },
+        price:{
+            type:Number,
+            required:true,
         }
-    },
-createExpireDate:{ required: true, type: Date, default:new Date()},
-createUpdateDate:{ required: true, type: Date},
-
-})
-module.exports = mongoose.model('stock,stockSchema');
+    }
+);
+module.exports=mongoose.model('stockfurniture', StockModel);
